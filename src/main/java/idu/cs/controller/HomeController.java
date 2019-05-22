@@ -58,7 +58,7 @@ public class HomeController {
 		//model.addAttribute("name", user.getName());
 		//model.addAttribute("company", user.getCompany());
 		model.addAttribute("user",user);
-		return "user";
+		return "user"; 
 		//return ResponseEntity.ok().body(user);
 	}
 	@GetMapping("/users/fn")
