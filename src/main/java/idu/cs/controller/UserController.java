@@ -19,7 +19,7 @@ import idu.cs.domain.User;
 import idu.cs.exception.ResourceNotFoundException;
 import idu.cs.repository.UserRepository;
 
-@Controller
+@Controller // Spring Framework에게 이 클래스로부터 작성된 Controller역할을 함을 알려줌
 public class UserController {
 	@Autowired UserRepository userRepo; // Dependency Injection
 	//UserRepository userRepo=new UserRepositoryImpl();
@@ -30,10 +30,11 @@ public class UserController {
 	//delete=DELETE
 	@GetMapping("/")
 	public String home(Model model) {
-		model.addAttribute("test", "인덕 컴소");
-		model.addAttribute("egy", "유응구");
+		//model.addAttribute("test", "인덕 컴소");
+		//model.addAttribute("egy", "유응구");
 		return "index";
 	}
+	
 	@GetMapping("/user-login-form")
 	public String getLoginForm(Model model) {
 		return "login";
@@ -53,6 +54,13 @@ public class UserController {
 		session.setAttribute("user", sessionUser);
 		return "redirect:/";
 	}
+	@GetMapping("/logout")
+	public String logoutUser(HttpSession session) {
+		session.removeAttribute("user");
+		//session.invalidate(); 세션이 다 날아감(장바구니 등 모두)
+		return "redirect:/";
+	}
+	
 	@GetMapping("/user-register-form")
 	public String getRegForm(Model model) {
 		return "register";
@@ -66,11 +74,11 @@ public class UserController {
 	public String createUser(@Valid User user, Model model) {
 		//user.setName("kjy");
 		//user.setCompany("idu");
-		if(userRepo.save(user)!=null) 
+		if(userRepo.save(user)!=null) {
+			model.addAttribute("users", userRepo.findAll());
 			System.out.println("DB등록");
-		else
+		}else
 			System.out.println("DB등록실패");
-		model.addAttribute("users", userRepo.findAll());
 		return "redirect:/users";
 	}
 	@GetMapping("/users/{id}")
