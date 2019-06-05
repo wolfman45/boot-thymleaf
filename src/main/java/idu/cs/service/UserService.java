@@ -4,7 +4,7 @@ import java.util.List;
 import idu.cs.domain.User;
 
 public interface UserService {
-	User getUser(long id); // primary key에 해당하는 id로  조회
+	User getUserById(long id); // primary key에 해당하는 id로  조회
 	User getUserByUserId(String userId); // unique key에 해당하는 userId로 조회
 	List<User> getUsers(); // 모든 사용자 조회
 	

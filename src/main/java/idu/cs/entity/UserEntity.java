@@ -22,15 +22,6 @@ public class UserEntity {
 	private String name;
 	private String company;
 	
-	public UserEntity(Long id, String userId, String userPw, String name, String company) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.userPw = userPw;
-		this.name = name;
-		this.company = company;
-	}
-	
 	public Long getId() {
 		return id;
 	}
